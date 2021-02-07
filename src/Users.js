@@ -8,9 +8,10 @@ const UserListItem = ({ name, avatar }) =>
     <span>{name}</span>
 </li>
 
-const UserList = ({ count, users})=>
+const UserList = ({ count, users, refetchUsers})=>
 <div>
     <div>{count} Users</div>
+    <button onClick={()=> refetchUsers()}>Refetch</button>
     <ul>
         {users.map(user=>
             <UserListItem key={user.githubLogin} name={user.name} avatar={user.avatar} />
@@ -21,9 +22,12 @@ const UserList = ({ count, users})=>
 const Users = () =>
 <Query query={ROOT_QUERY}>
     {
-        ({data, loading})=>
+        ({data, loading , refetch })=>
         <div>Users are loading: {loading? <div>loading users......</div> : 
-        <UserList count={data.totalUsers} users={data.allUsers} /> }</div>
+        <UserList count={data.totalUsers} 
+        users={data.allUsers}
+        refetchUsers={ refetch }
+         /> }</div>
     }
 
 </Query>
