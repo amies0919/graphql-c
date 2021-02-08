@@ -10,6 +10,17 @@ const ADD_FAKE_USERS_MUTATION = gql`mutation addFakeUsers($count:Int!) {
         avatar
     }
 }`
+const updateUserCache = (cache, { data:{ addFakeUsers}})=>{
+    console.log(addFakeUsers)
+    let data = cache.readQuery({query: ROOT_QUERY})
+    data.totalUsers += addFakeUsers.length
+    data.allUsers = [
+        ...data.allUsers,
+        ...addFakeUsers
+    ]
+    console.log(data.allUsers,data)
+    cache.writeQuery({query: ROOT_QUERY, data})
+}
 
 const UserListItem = ({ name, avatar }) =>
 <li>
@@ -23,7 +34,7 @@ const UserList = ({ count, users, refetchUsers})=>
     <button onClick={()=> refetchUsers()}>Refetch</button>
     <Mutation 
     mutation={ADD_FAKE_USERS_MUTATION} 
-    refetchQueries={[{ query: ROOT_QUERY }]}
+    update={updateUserCache}
     variables={{count:1}}
     >
         {addFakeUsers=>
