@@ -19,7 +19,7 @@ const updateUserCache = (cache, { data:{ addFakeUsers}})=>{
         ...addFakeUsers
     ]
     console.log(data.allUsers,data)
-    cache.writeQuery({query: ROOT_QUERY, data})
+    // cache.writeQuery({query: ROOT_QUERY, data})
 }
 
 const UserListItem = ({ name, avatar }) =>
@@ -54,7 +54,7 @@ const Users = () =>
     {
         ({data, loading , refetch })=>
         <div>Users are loading: {loading? <div>loading users......</div> : 
-        <UserList count={data.totalUsers} 
+            <UserList count={data.totalUsers}
         users={data.allUsers}
         refetchUsers={ refetch }
          /> }</div>
