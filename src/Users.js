@@ -13,12 +13,12 @@ const ADD_FAKE_USERS_MUTATION = gql`mutation addFakeUsers($count:Int!) {
 const updateUserCache = (cache, { data:{ addFakeUsers}})=>{
     console.log(addFakeUsers)
     let data = cache.readQuery({query: ROOT_QUERY})
-    data.totalUsers += addFakeUsers.length
-    data.allUsers = [
-        ...data.allUsers,
-        ...addFakeUsers
-    ]
-    console.log(data.allUsers,data)
+    // data.totalUsers += addFakeUsers.length
+    // data.allUsers = [
+    //     ...data.allUsers,
+    //     ...addFakeUsers
+    // ]
+    // console.log(data.allUsers,data)
     // cache.writeQuery({query: ROOT_QUERY, data})
 }
 

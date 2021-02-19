@@ -39,12 +39,14 @@ class App extends Component {
                           .subscribe({ query: LISTEN_FOR_USERS})
                           .subscribe(({data: {newUser}}) => {
                             const data = client.readQuery({query: ROOT_QUERY})
-                            data.totalUsers = data.totalUsers + 1
-                            data.allUsers = [
-                              ...data.allUsers,
-                              newUser
-                            ]
-                            // client.writeQuery({query: ROOT_QUERY, data})
+                            let newData = {
+                              allUsers:[
+                                ...data.allUsers,
+                                newUser
+                              ], 
+                              totalUsers:data.totalUsers + 1
+                            }
+                            client.writeQuery({query: ROOT_QUERY, data:newData})
                           })
 
   }
